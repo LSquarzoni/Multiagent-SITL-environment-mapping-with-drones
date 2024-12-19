@@ -60,7 +60,7 @@ In the case of our iris drone equipped with the depth camera, the main link was 
 
 In order to achieve this, we must provide within the TF Tree all the transformations from */map* to */camera_link*, namely */map &rarr; /base_link &rarr; camera_link*.
 
-The scope of the **map_base_link_publ** is to provide the first transformation, from */map* to */base_link*. This operation requires to localize the drone in the environment, meaning to find its x, y, and z coordinates and orientation. These information were obtained by subscribing the */vehicle_local_position* and */vehicle_attitude* topics.
+The scope of the **map_base_link_publ** node is to provide the first transformation, from */map* to */base_link*. This operation requires to localize the drone in the environment, meaning to find its x, y, and z coordinates and orientation. These information were obtained by subscribing the */vehicle_local_position* and */vehicle_attitude* topics.
 
 Since PX4 and ROS2 use respectively ENU (East-North-Up) and NED (North-East-Down) frame conventions, we needed to apply the corresponding conversions to publish the correct */map* to */base_link* transformation(refer to https://docs.px4.io/main/en/ros2/user_guide.html#ros-2-px4-frame-conventions).
 
@@ -70,7 +70,7 @@ The PX4 repository provides only the *.sdf* files of the vehicles, then we gener
 
 #### **PointCloud transformer**
 
-Even though the TF tree was fully generated and published, the topics associated to the camera were not automatically referred to the */map* reference frame. Consequently, we relaized a new ROS2 node, **pointcloud_transformer**, in order to provide the correct transformation of the topic's data.
+Even though the TF tree was fully generated and published, the topics associated to the camera were not automatically referred to the */map* reference frame. Consequently, we realized a new ROS2 node, **pointcloud_transformer**, in order to provide the correct transformation of the topic's data.
 
 Further more, we integrated in this node some other functionalities to improve the final mapping result. In particular:
 - the ground is removed applying a filter to all data below 0.2 meters in the z direction;
